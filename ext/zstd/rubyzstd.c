@@ -23,7 +23,7 @@ static VALUE compress(VALUE self, VALUE input)
   size_t compressed_size = ZSTD_compress((void*)(output_data + varint_size), max_compressed_size,
                                          (const void*)input_data, input_size, 1);
 
-  if (compressed_size == 0) {
+  if (ZSTD_isError(compressed_size)) {
     size_t zero_varint_size = varint_encode(0, output_data);
     memcpy(output_data + varint_size, input_data, input_size);
     rb_str_resize(output, zero_varint_size + input_size);
@@ -43,11 +43,19 @@ static VALUE decompress(VALUE self, VALUE input)
   uint64_t uncompressed_size;
   size_t varint_size = varint_decode(&uncompressed_size, input_data);
 
+  if (uncompressed_size == 0) {
+    return rb_str_substr(input, varint_size, input_size - varint_size);
+  }
+
   VALUE output = rb_str_new(NULL, uncompressed_size);
   char* output_data = RSTRING_PTR(output);
 
   size_t decompress_size = ZSTD_decompress((void*)output_data, uncompressed_size,
                                            (const void*)(input_data + varint_size), input_size - varint_size);
+
+  if (ZSTD_isError(decompress_size)) {
+      output = Qnil;
+  }
 
   return output;
 }
