@@ -1,0 +1,6 @@
+module Zstd
+  LIBZSTD_VERSION = '0.7.0'
+  GEM_REVISION = 1
+
+  VERSION = "#{LIBZSTD_VERSION}.#{GEM_REVISION}"
+end
