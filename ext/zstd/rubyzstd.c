@@ -54,7 +54,7 @@ static VALUE decompress(VALUE self, VALUE input)
                                            (const void*)(input_data + varint_size), input_size - varint_size);
 
   if (ZSTD_isError(decompress_size)) {
-      output = Qnil;
+    rb_raise(rb_eRuntimeError, "%s", "decompress error");
   }
 
   return output;
