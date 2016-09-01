@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
   s.extensions << 'ext/zstd/extconf.rb'
 
   s.require_paths = ['lib', 'ext']
+
+  s.add_development_dependency 'rspec'
 end

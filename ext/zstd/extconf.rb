@@ -16,7 +16,7 @@ end
 
 # add include path to the internal folder
 # $(srcdir) is a root folder, where "extconf.rb" is stored
-$INCFLAGS << " -I$(srcdir)"
+$INCFLAGS << " -I$(srcdir) -I$(srcdir)/libzstd"
 
 # add folder, where compiler can search source files
 $VPATH << "$(srcdir)"
