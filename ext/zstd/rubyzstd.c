@@ -52,6 +52,7 @@ static VALUE decompress_buffered(const char* input_data, size_t input_size)
 
   size_t initResult = ZSTD_initDStream(dstream);
   if (ZSTD_isError(initResult)) {
+    ZSTD_freeDStream(dstream);
     rb_raise(rb_eRuntimeError, "%s: %s", "ZSTD_initDStream failed", ZSTD_getErrorName(initResult));
   }
 
@@ -67,10 +68,12 @@ static VALUE decompress_buffered(const char* input_data, size_t input_size)
 
     size_t readHint = ZSTD_decompressStream(dstream, &output, &input);
     if (ZSTD_isError(readHint)) {
+      ZSTD_freeDStream(dstream);
       rb_raise(rb_eRuntimeError, "%s: %s", "ZSTD_decompressStream failed", ZSTD_getErrorName(readHint));
     }
   }
 
+  ZSTD_freeDStream(dstream);
   rb_str_resize(output_string, output.pos);
   return output_string;
 }
