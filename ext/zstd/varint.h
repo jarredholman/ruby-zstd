@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stddef.h>
 
 size_t varint_encoded_size(uint64_t value);
 
