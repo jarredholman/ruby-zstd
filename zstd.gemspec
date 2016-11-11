@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.author = 'Jarred Holman'
   s.licenses = ['MIT']
 
-  s.files = Dir['{lib,ext}/**/*.rb']
+  s.files = open('|git ls-files','r').readlines.map(&:chomp)
   
   s.platform = Gem::Platform::RUBY
   s.extensions << 'ext/zstd/extconf.rb'
@@ -15,4 +15,5 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib', 'ext']
 
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rake-compiler', '~> 1.0'
 end
