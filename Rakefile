@@ -16,4 +16,5 @@ GEMSPEC = Gem::Specification.load('zstd.gemspec')
 
 Rake::ExtensionTask.new("zstd", GEMSPEC) do |task|
   task.lib_dir = "lib/zstd"
+  task.ext_dir = "ext/zstd"
 end

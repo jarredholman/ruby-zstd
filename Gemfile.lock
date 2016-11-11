@@ -7,6 +7,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.2.5)
+    rake (11.3.0)
+    rake-compiler (1.0.1)
+      rake
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -22,9 +25,11 @@ GEM
     rspec-support (3.5.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
+  rake-compiler (~> 1.0)
   rspec
   zstd!
 
